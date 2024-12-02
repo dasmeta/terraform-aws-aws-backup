@@ -98,7 +98,7 @@ resource "aws_kms_alias" "backup_sns" {
 module "sns_topic" {
   #checkov:skip=CKV_TF_1: https://github.com/bridgecrewio/checkov/issues/5286
   source  = "terraform-aws-modules/sns/aws"
-  version = "~> 3.0"
+  version = "~> 6.1"
 
 
   name              = "backups_${var.env}"
