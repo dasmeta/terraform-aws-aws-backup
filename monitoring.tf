@@ -1,8 +1,4 @@
 data "aws_iam_policy_document" "kms" {
-  # Copy of default KMS policy that lets you manage it
-  #checkov:skip=CKV_AWS_111: Does not apply here because KMS key policies only apply to the key itself. (https://docs.bridgecrew.io/docs/ensure-iam-policies-do-not-allow-write-access-without-constraint)
-  #checkov:skip=CKV_AWS_109: Does not apply here because KMS key policies only apply to the key itself. (https://docs.bridgecrew.io/docs/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint)
-  #checkov:skip=CKV_AWS_356: ignoring asterisk for policies
   statement {
     sid       = "Enable IAM User Permissions"
     actions   = ["kms:*"]
@@ -52,7 +48,6 @@ data "aws_iam_policy_document" "kms" {
 }
 
 data "aws_iam_policy_document" "backup_notifications" {
-  #checkov:skip=CKV_AWS_356: ignoring asterisk for policies
   policy_id = "aws_backup_${var.env}"
 
   statement {
@@ -96,7 +91,6 @@ resource "aws_kms_alias" "backup_sns" {
 }
 
 module "sns_topic" {
-  #checkov:skip=CKV_TF_1: https://github.com/bridgecrewio/checkov/issues/5286
   source  = "terraform-aws-modules/sns/aws"
   version = "~> 3.0"
 

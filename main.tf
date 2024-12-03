@@ -55,10 +55,6 @@ resource "aws_backup_selection" "tagged_daily" {
     }
 
   }
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "backup:rule:efs"
-    value = "daily-${var.env}"
-  }
+
   iam_role_arn = aws_iam_role.backup.arn
 }

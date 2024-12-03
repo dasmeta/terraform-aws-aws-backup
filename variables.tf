@@ -9,11 +9,6 @@ variable "region" {
   default     = "eu-central-1"
 }
 
-variable "component" {
-  description = "The component to which the resources deployed in this module belong to. This can be an application or a part of the overall infrastructure."
-  type        = string
-}
-
 variable "backup_retention_days" {
   description = "Number of days recovery points should be kept."
   type        = number
@@ -65,5 +60,22 @@ variable "plan_selection_tag" {
       value = ""
     }
   ]
+}
 
+variable "rules" {
+  description = "List of rules to attach to the plan"
+  type        = list(map)
+  default = [
+    {
+      name              = "daily"
+      schedule          = "cron(0 12 * * ? *)"
+      continuous_backup = true
+      vault             = "Backup"
+
+      recovery_point_tags = {
+        Environment = "dev"
+        Plan        = "plan name"
+      }
+    }
+  ]
 }
